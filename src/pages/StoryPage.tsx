@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import StoryViewer from "@/components/StoryViewer";
 import { getStoryById } from "@/services/storyService";
 import type { Story } from "@/services/storyService";
+import Header from "@/components/Header";
 
 const StoryPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,16 +27,29 @@ const StoryPage = () => {
   }, [id]);
 
   if (isLoading) {
-    return <div className="text-center py-12">Loading story...</div>;
+    return (
+      <div className="min-h-screen bg-story-secondary">
+        <Header />
+        <div className="text-center py-12">Loading story...</div>
+      </div>
+    );
   }
 
   if (!story) {
-    return <div className="text-center py-12">Story not found</div>;
+    return (
+      <div className="min-h-screen bg-story-secondary">
+        <Header />
+        <div className="text-center py-12">Story not found</div>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-story-secondary py-12">
-      <StoryViewer story={story} />
+    <div className="min-h-screen bg-story-secondary">
+      <Header />
+      <div className="py-12">
+        <StoryViewer story={story} />
+      </div>
     </div>
   );
 };

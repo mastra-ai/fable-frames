@@ -5,6 +5,7 @@ import StoryGrid from "@/components/StoryGrid";
 import { getLatestStories } from "@/services/storyService";
 import type { Story } from "@/services/storyService";
 import { Sparkles } from "lucide-react";
+import Header from "@/components/Header";
 
 const Index = () => {
   const [stories, setStories] = useState<Story[]>([]);
@@ -27,6 +28,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-story-secondary via-white to-story-secondary">
+      <Header />
       <div className="max-w-7xl mx-auto py-12 px-4">
         <div className="text-center mb-12 space-y-6">
           <h1 className="text-6xl font-bold text-story-text mb-4 animate-float">
