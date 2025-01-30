@@ -23,13 +23,6 @@ const Header = () => {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link to="/create">
-                <Button variant="ghost" className="text-base">
-                  Create Story
-                </Button>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
               <Link to="/">
                 <Button variant="ghost" className="text-base">
                   Browse Stories
