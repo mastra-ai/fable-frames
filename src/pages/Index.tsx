@@ -38,7 +38,7 @@ const Index = () => {
             </span>
           </h1>
           <p className="text-2xl text-story-text/80 mb-8 animate-fade-in">
-            Instantly build your first children's story
+            Frame a Story, Shape a Lesson
           </p>
           <div className="mt-8">
             <Link to="/create">
