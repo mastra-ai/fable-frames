@@ -32,21 +32,21 @@ const Index = () => {
       <div className="max-w-7xl mx-auto py-12 px-4">
         <div className="text-center mb-12 space-y-6">
           <h1 className="text-6xl font-bold text-story-text mb-4 animate-float">
-            Magical Stories
+            Create your Fable
             <span className="inline-block ml-2">
               <Sparkles className="h-12 w-12 text-story-accent" />
             </span>
           </h1>
           <p className="text-2xl text-story-text/80 mb-8 animate-fade-in">
-            Join us on wonderful adventures!
+            Instantly build your first children's story
           </p>
           <div className="mt-8">
             <Link to="/create">
               <Button
                 size="lg"
-                className="bg-story-accent hover:bg-story-accent/90 text-white px-12 py-6 rounded-full text-xl font-bold shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-xl animate-[bounce_3s_ease-in-out_infinite]"
+                className="bg-story-accent hover:bg-story-accent/90 text-white px-12 py-6 rounded-full text-xl font-bold shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-xl"
               >
-                Create Your Story! ✨
+                Create Your Fable ✨
               </Button>
             </Link>
           </div>
