@@ -54,7 +54,7 @@ const Index = () => {
 
         <div className="mb-8">
           <h2 className="text-4xl font-bold text-story-text mb-8 text-center">
-            ✨ Magical Stories ✨
+            ✨ Recent Fables ✨
           </h2>
           {isLoading ? (
             <div className="text-center text-2xl text-story-text animate-pulse">
