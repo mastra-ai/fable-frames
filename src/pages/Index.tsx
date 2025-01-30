@@ -38,14 +38,16 @@ const Index = () => {
           <p className="text-2xl text-story-text/80 mb-8 animate-fade-in">
             Join us on wonderful adventures!
           </p>
-          <Link to="/create">
-            <Button
-              size="lg"
-              className="bg-story-accent hover:bg-story-accent/90 text-white px-12 py-6 rounded-full text-xl font-bold shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-xl animate-[bounce_3s_ease-in-out_infinite]"
-            >
-              Create Your Story! ✨
-            </Button>
-          </Link>
+          <div className="mt-8">
+            <Link to="/create">
+              <Button
+                size="lg"
+                className="bg-story-accent hover:bg-story-accent/90 text-white px-12 py-6 rounded-full text-xl font-bold shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-xl animate-[bounce_3s_ease-in-out_infinite]"
+              >
+                Create Your Story! ✨
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <div className="mb-8">
