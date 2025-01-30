@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Share2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Share2, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { Story } from "@/services/storyService";
 
@@ -14,7 +14,6 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
 
   const handleShare = async () => {
     try {
-      // Try using the Web Share API first
       if (navigator.share) {
         await navigator.share({
           title: story.title,
@@ -26,7 +25,6 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
           description: "The story has been shared.",
         });
       } else {
-        // Fallback to copying the URL
         await navigator.clipboard.writeText(window.location.href);
         toast({
           title: "Link copied!",
@@ -45,11 +43,14 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="mb-8 flex justify-between items-center">
-        <h1 className="text-4xl font-bold text-story-text">{story.title}</h1>
+      <div className="mb-8 flex justify-between items-center bg-story-secondary rounded-2xl p-6 shadow-lg">
+        <h1 className="text-4xl font-bold text-story-text flex items-center gap-2">
+          {story.title}
+          <Sparkles className="h-6 w-6 text-story-accent animate-pulse" />
+        </h1>
         <Button
           variant="outline"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-white hover:bg-story-accent hover:text-white transition-colors duration-300"
           onClick={handleShare}
         >
           <Share2 className="w-4 h-4" />
@@ -57,30 +58,30 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
         </Button>
       </div>
 
-      <div className="relative aspect-[16/9] mb-8">
+      <div className="relative aspect-[16/9] mb-8 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
         <img
           src={story.images[currentPage]}
           alt={`Story page ${currentPage + 1}`}
-          className="w-full h-full object-cover rounded-lg shadow-lg"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 rounded-b-lg">
-          <p className="text-white text-xl font-medium">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-story-primary/90 to-transparent p-8 rounded-b-3xl">
+          <p className="text-white text-2xl font-medium leading-relaxed animate-fade-in">
             {story.texts[currentPage]}
           </p>
         </div>
       </div>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center bg-story-secondary rounded-2xl p-4">
         <Button
           variant="outline"
           onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
           disabled={currentPage === 0}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-white hover:bg-story-accent hover:text-white transition-colors duration-300 disabled:opacity-50"
         >
           <ChevronLeft className="w-4 h-4" />
           Previous
         </Button>
-        <span className="text-story-text">
+        <span className="text-story-text text-lg font-medium bg-white px-4 py-2 rounded-full">
           Page {currentPage + 1} of {story.images.length}
         </span>
         <Button
@@ -89,7 +90,7 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
             setCurrentPage(Math.min(story.images.length - 1, currentPage + 1))
           }
           disabled={currentPage === story.images.length - 1}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-white hover:bg-story-accent hover:text-white transition-colors duration-300 disabled:opacity-50"
         >
           Next
           <ChevronRight className="w-4 h-4" />

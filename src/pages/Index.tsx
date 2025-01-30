@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import StoryGrid from "@/components/StoryGrid";
 import { getLatestStories } from "@/services/storyService";
 import type { Story } from "@/services/storyService";
+import { Sparkles } from "lucide-react";
 
 const Index = () => {
   const [stories, setStories] = useState<Story[]>([]);
@@ -25,31 +26,36 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-story-secondary">
+    <div className="min-h-screen bg-gradient-to-b from-story-secondary via-white to-story-secondary">
       <div className="max-w-7xl mx-auto py-12 px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-story-text mb-4 animate-float">
-            Create Magical Bedtime Stories
+        <div className="text-center mb-12 space-y-6">
+          <h1 className="text-6xl font-bold text-story-text mb-4 animate-float">
+            Magical Stories
+            <span className="inline-block ml-2 animate-bounce">
+              <Sparkles className="h-12 w-12 text-story-accent" />
+            </span>
           </h1>
-          <p className="text-xl text-story-text/80 mb-8">
-            Generate unique stories for your little ones with just a few clicks
+          <p className="text-2xl text-story-text/80 mb-8 animate-fade-in">
+            Join us on wonderful adventures!
           </p>
           <Link to="/create">
             <Button
               size="lg"
-              className="bg-story-primary hover:bg-story-primary/90 text-white px-8"
+              className="bg-story-accent hover:bg-story-accent/90 text-white px-12 py-6 rounded-full text-xl font-bold shadow-lg transform transition-all duration-200 hover:scale-105 hover:shadow-xl animate-bounce"
             >
-              Start Your Story
+              Create Your Story! ✨
             </Button>
           </Link>
         </div>
 
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-story-text mb-6">
-            Latest Stories
+          <h2 className="text-4xl font-bold text-story-text mb-8 text-center">
+            ✨ Magical Stories ✨
           </h2>
           {isLoading ? (
-            <div className="text-center">Loading stories...</div>
+            <div className="text-center text-2xl text-story-text animate-pulse">
+              Loading magical stories...
+            </div>
           ) : (
             <StoryGrid stories={stories} />
           )}
