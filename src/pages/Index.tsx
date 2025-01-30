@@ -32,13 +32,13 @@ const Index = () => {
       <div className="max-w-7xl mx-auto py-12 px-4">
         <div className="text-center mb-12 space-y-6">
           <h1 className="text-6xl font-bold text-story-text mb-4 animate-float">
-            Create your Fable
+            Frame a Story, Shape a Lesson
             <span className="inline-block ml-2">
               <Sparkles className="h-12 w-12 text-story-accent" />
             </span>
           </h1>
           <p className="text-2xl text-story-text/80 mb-8 animate-fade-in">
-            Frame a Story, Shape a Lesson
+            The simplest way to create a story with your child
           </p>
           <div className="mt-8">
             <Link to="/create">
