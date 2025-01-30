@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Share2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import type { Story } from "@/services/storyService";
 
 interface StoryViewerProps {
@@ -9,16 +10,36 @@ interface StoryViewerProps {
 
 const StoryViewer = ({ story }: StoryViewerProps) => {
   const [currentPage, setCurrentPage] = useState(0);
+  const { toast } = useToast();
 
   const handleShare = async () => {
     try {
-      await navigator.share({
-        title: story.title,
-        text: "Check out this magical story!",
-        url: window.location.href,
-      });
+      // Try using the Web Share API first
+      if (navigator.share) {
+        await navigator.share({
+          title: story.title,
+          text: "Check out this magical story!",
+          url: window.location.href,
+        });
+        toast({
+          title: "Shared successfully!",
+          description: "The story has been shared.",
+        });
+      } else {
+        // Fallback to copying the URL
+        await navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: "Link copied!",
+          description: "The story link has been copied to your clipboard.",
+        });
+      }
     } catch (error) {
       console.log("Sharing failed", error);
+      toast({
+        title: "Sharing failed",
+        description: "Unable to share the story. Please try copying the URL manually.",
+        variant: "destructive",
+      });
     }
   };
 
