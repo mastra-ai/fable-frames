@@ -34,7 +34,7 @@ const Header = () => {
         <div className="flex-1" />
         <Link to="/create">
           <Button className="bg-story-accent hover:bg-story-accent/90">
-            Start Writing ✨
+            Create your Fable ✨
           </Button>
         </Link>
       </div>
