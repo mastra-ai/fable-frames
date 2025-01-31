@@ -46,7 +46,7 @@ const Index = () => {
                 size="lg"
                 className="bg-story-accent hover:bg-story-accent/90 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
-                Create Your Story ✨
+                Create your Fable ✨
               </Button>
             </Link>
           </div>
