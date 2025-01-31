@@ -6,7 +6,7 @@ const CreateStory = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <div className="container px-4 py-16 md:py-24">
-        <div className="text-center space-y-6 max-w-3xl mx-auto mb-20">
+        <div className="text-center space-y-6 max-w-3xl mx-auto mb-12">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-story-text bg-clip-text text-transparent bg-gradient-to-r from-story-primary via-story-accent to-story-primary animate-float pb-2">
             Create Your Magical Story
           </h1>
