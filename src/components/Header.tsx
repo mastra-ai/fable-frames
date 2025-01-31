@@ -11,6 +11,13 @@ import {
 } from "@/components/ui/navigation-menu";
 
 const Header = () => {
+  const scrollToStories = () => {
+    const storiesSection = document.getElementById('stories-section');
+    if (storiesSection) {
+      storiesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -23,11 +30,9 @@ const Header = () => {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link to="/">
-                <Button variant="ghost" className="text-base">
-                  Browse Stories
-                </Button>
-              </Link>
+              <Button variant="ghost" className="text-base" onClick={scrollToStories}>
+                Browse Stories
+              </Button>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

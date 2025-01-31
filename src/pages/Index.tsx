@@ -52,9 +52,9 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="mt-24">
+        <div id="stories-section" className="mt-24">
           <h2 className="text-3xl md:text-4xl font-bold text-story-text mb-12 text-center">
-            ✨ Recent Fables ✨
+            ✨ Recent Stories ✨
           </h2>
           {isLoading ? (
             <div className="text-center text-2xl text-story-text/80 animate-pulse">
