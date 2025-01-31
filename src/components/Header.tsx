@@ -1,21 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
 const Header = () => {
-  const scrollToStories = () => {
-    const storiesSection = document.getElementById('stories-section');
-    if (storiesSection) {
-      storiesSection.scrollIntoView({ behavior: 'smooth' });
-    }
+  const navigate = useNavigate();
+
+  const handleBrowseStories = () => {
+    navigate('/');
+    // Wait for navigation to complete before scrolling
+    setTimeout(() => {
+      const storiesSection = document.getElementById('stories-section');
+      if (storiesSection) {
+        storiesSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return (
@@ -30,7 +35,7 @@ const Header = () => {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Button variant="ghost" className="text-base" onClick={scrollToStories}>
+              <Button variant="ghost" className="text-base" onClick={handleBrowseStories}>
                 Browse Stories
               </Button>
             </NavigationMenuItem>
