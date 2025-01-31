@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { generateCharacterImages, generateStory, type Character } from "@/services/storyService";
 import { useToast } from "@/components/ui/use-toast";
+import { Sparkles } from "lucide-react";
 
 const StoryCreationForm = () => {
   const [step, setStep] = useState(1);
@@ -67,38 +68,44 @@ const StoryCreationForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 space-y-8">
+    <div className="max-w-2xl mx-auto space-y-8 bg-white rounded-2xl shadow-lg p-8">
       {step === 1 && (
         <form onSubmit={handleGenerateCharacter} className="space-y-6">
-          <h2 className="text-3xl font-bold text-story-text text-center">Describe Your Character</h2>
+          <h2 className="text-3xl font-bold text-story-text text-center flex items-center justify-center gap-2">
+            Describe Your Character
+            <Sparkles className="h-6 w-6 text-story-accent" />
+          </h2>
           <Textarea
             value={characterDescription}
             onChange={(e) => setCharacterDescription(e.target.value)}
             placeholder="Describe your magical character..."
-            className="min-h-[150px]"
+            className="min-h-[150px] border-story-primary/20 focus:border-story-primary"
             required
           />
           <Button
             type="submit"
-            className="w-full bg-story-primary hover:bg-story-primary/90"
+            className="w-full bg-story-primary hover:bg-story-primary/90 text-white font-semibold py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
             disabled={isLoading}
           >
-            {isLoading ? "Generating..." : "Generate Character"}
+            {isLoading ? "Generating..." : "Generate Character ✨"}
           </Button>
         </form>
       )}
 
       {step === 2 && (
         <form onSubmit={handleCharacterSelection} className="space-y-6">
-          <h2 className="text-3xl font-bold text-story-text text-center">Choose Your Character</h2>
-          <div className="grid grid-cols-3 gap-4">
+          <h2 className="text-3xl font-bold text-story-text text-center flex items-center justify-center gap-2">
+            Choose Your Character
+            <Sparkles className="h-6 w-6 text-story-accent" />
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {characters.map((char) => (
               <div
                 key={char.id}
-                className={`cursor-pointer p-2 rounded-lg transition-all ${
+                className={`cursor-pointer p-2 rounded-xl transition-all transform hover:scale-105 ${
                   selectedCharacter?.id === char.id
-                    ? "ring-4 ring-story-accent"
-                    : "hover:ring-2 ring-story-primary"
+                    ? "ring-4 ring-story-accent shadow-lg"
+                    : "hover:ring-2 ring-story-primary/50 hover:shadow-md"
                 }`}
                 onClick={() => setSelectedCharacter(char)}
               >
@@ -114,34 +121,37 @@ const StoryCreationForm = () => {
             value={characterName}
             onChange={(e) => setCharacterName(e.target.value)}
             placeholder="Give your character a name..."
-            className="min-h-[80px]"
+            className="min-h-[80px] border-story-primary/20 focus:border-story-primary"
             required
           />
           <Button
             type="submit"
-            className="w-full bg-story-primary hover:bg-story-primary/90"
+            className="w-full bg-story-primary hover:bg-story-primary/90 text-white font-semibold py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            Next Step
+            Next Step ✨
           </Button>
         </form>
       )}
 
       {step === 3 && (
         <form onSubmit={handleGenerateStory} className="space-y-6">
-          <h2 className="text-3xl font-bold text-story-text text-center">Create Your Story</h2>
+          <h2 className="text-3xl font-bold text-story-text text-center flex items-center justify-center gap-2">
+            Create Your Story
+            <Sparkles className="h-6 w-6 text-story-accent" />
+          </h2>
           <Textarea
             value={storyDescription}
             onChange={(e) => setStoryDescription(e.target.value)}
             placeholder="Describe the magical adventure..."
-            className="min-h-[150px]"
+            className="min-h-[150px] border-story-primary/20 focus:border-story-primary"
             required
           />
           <Button
             type="submit"
-            className="w-full bg-story-primary hover:bg-story-primary/90"
+            className="w-full bg-story-primary hover:bg-story-primary/90 text-white font-semibold py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
             disabled={isLoading}
           >
-            {isLoading ? "Creating Story..." : "Create Story"}
+            {isLoading ? "Creating Story..." : "Create Story ✨"}
           </Button>
         </form>
       )}
