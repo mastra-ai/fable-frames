@@ -39,24 +39,25 @@ const Index = () => {
                 <Sparkles className="h-8 w-8 md:h-12 md:w-12" />
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-story-text/80 animate-fade-in">
+            <p className="text-xl md:text-2xl animate-fade-in">
               The simplest way to create a story with your child
             </p>
             <div className="pt-4">
               <Link to="/create">
                 <Button size="lg" variant="default">
-                  Create your Fable ✨
+                  <Sparkles className="h-4 w-4" /> Create your Fable{" "}
+                  <Sparkles className="h-4 w-4" />
                 </Button>
               </Link>
             </div>
           </div>
 
           <div id="stories-section" className="mt-24">
-            <h2 className="text-3xl md:text-4xl font-bold text-story-text mb-12 text-center">
-              ✨ Recent Stories ✨
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              Featured Stories
             </h2>
             {isLoading ? (
-              <div className="text-center text-2xl text-story-text/80 animate-pulse">
+              <div className="text-center text-2xl animate-pulse">
                 Loading magical stories...
               </div>
             ) : (

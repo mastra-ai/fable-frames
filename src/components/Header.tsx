@@ -47,6 +47,7 @@ const Header = () => {
         <Link to="/create">
           <Button className="">
             <Sparkles className="h-4 w-4" /> Create your Fable{" "}
+            <Sparkles className="h-4 w-4" />
           </Button>
         </Link>
       </div>
