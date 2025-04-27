@@ -13,6 +13,7 @@ export interface Story {
   texts: string[];
   createdAt: string;
   characterImage: string;
+  style: string;
 }
 
 type StoryContent = {
@@ -36,8 +37,12 @@ export const generateCharacterImages = async (description: string): Promise<Char
   }));
 };
 
-export const generateStory = async (characterImage: string, description: string): Promise<Story> => {
-  console.log("Generating story with character image and description:", { characterImage, description });
+export const generateStory = async (
+  characterImage: string,
+  description: string,
+  style: string
+): Promise<Story> => {
+  console.log("Generating story with character image, description, and style:", { characterImage, description, style });
   
   // Mock story generation
   const mockStoryContent: StoryContent = Array(5).fill(null).map(() => ({
@@ -53,6 +58,7 @@ export const generateStory = async (characterImage: string, description: string)
       .insert({
         title,
         content: mockStoryContent,
+        style,
       })
       .select()
       .single();
@@ -71,6 +77,7 @@ export const generateStory = async (characterImage: string, description: string)
       texts: mockStoryContent.map(page => page.text),
       createdAt: story.created_at,
       characterImage,
+      style: story.style,
     };
   } catch (error) {
     console.error("Failed to save story:", error);
@@ -103,6 +110,7 @@ export const getLatestStories = async (page: number = 1): Promise<Story[]> => {
         texts: content.map(page => page.text),
         createdAt: story.created_at,
         characterImage: content[0].image,
+        style: story.style,
       };
     });
   } catch (error) {
@@ -140,6 +148,7 @@ export const getStoryById = async (id: string): Promise<Story | null> => {
       texts: content.map(page => page.text),
       createdAt: story.created_at,
       characterImage: content[0].image,
+      style: story.style,
     };
   } catch (error) {
     console.error("Failed to fetch story:", error);

@@ -6,6 +6,17 @@ import { generateCharacterImages, generateStory, type Character } from "@/servic
 import { useToast } from "@/components/ui/use-toast";
 import { Sparkles } from "lucide-react";
 
+const STORY_STYLES = [
+  { name: "Classic Watercolor", image: "/placeholder.svg" },
+  { name: "Flat Vector", image: "/placeholder.svg" },
+  { name: "Collage", image: "/placeholder.svg" },
+  { name: "Mid-Century Modern", image: "/placeholder.svg" },
+  { name: "Whimsical", image: "/placeholder.svg" },
+  { name: "Fantasy", image: "/placeholder.svg" },
+  { name: "Anime", image: "/placeholder.svg" },
+  { name: "Naive", image: "/placeholder.svg" },
+];
+
 const StoryCreationForm = () => {
   const [step, setStep] = useState(1);
   const [characterDescription, setCharacterDescription] = useState("");
@@ -13,9 +24,27 @@ const StoryCreationForm = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [characterName, setCharacterName] = useState("");
   const [storyDescription, setStoryDescription] = useState("");
+  const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const handleStyleSelection = (style: string) => {
+    setSelectedStyle(style);
+  };
+
+  const handleStyleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedStyle) {
+      toast({
+        title: "Select a Style",
+        description: "Please select a story style to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setStep(2);
+  };
 
   const handleGenerateCharacter = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +52,7 @@ const StoryCreationForm = () => {
     try {
       const images = await generateCharacterImages(characterDescription);
       setCharacters(images);
-      setStep(2);
+      setStep(3);
     } catch (error) {
       toast({
         title: "Error",
@@ -45,16 +74,15 @@ const StoryCreationForm = () => {
       });
       return;
     }
-    setStep(3);
+    setStep(4);
   };
 
   const handleGenerateStory = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedCharacter) return;
-    
+    if (!selectedCharacter || !selectedStyle) return;
     setIsLoading(true);
     try {
-      const story = await generateStory(selectedCharacter.imageUrl, storyDescription);
+      const story = await generateStory(selectedCharacter.imageUrl, storyDescription, selectedStyle);
       navigate(`/story/${story.id}`);
     } catch (error) {
       toast({
@@ -70,6 +98,30 @@ const StoryCreationForm = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-8 bg-white rounded-2xl shadow-lg p-8">
       {step === 1 && (
+        <form onSubmit={handleStyleSubmit} className="space-y-6">
+          <h2 className="text-3xl font-bold text-story-text text-center flex items-center justify-center gap-2">
+            Select Your Story Style
+            <Sparkles className="h-6 w-6 text-story-accent" />
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {STORY_STYLES.map((style) => (
+              <div
+                key={style.name}
+                className={`cursor-pointer p-2 rounded-xl border transition-all flex flex-col items-center justify-center gap-2 ${selectedStyle === style.name ? "ring-4 ring-story-accent" : "hover:ring-2 ring-story-primary/50"}`}
+                onClick={() => handleStyleSelection(style.name)}
+              >
+                <img src={style.image} alt={style.name} className="w-full h-24 object-cover rounded-lg" />
+                <span className="font-semibold text-center text-sm">{style.name}</span>
+              </div>
+            ))}
+          </div>
+          <Button type="submit" className="w-full" disabled={!selectedStyle}>
+            Next Step
+          </Button>
+        </form>
+      )}
+
+      {step === 2 && (
         <form onSubmit={handleGenerateCharacter} className="space-y-6">
           <h2 className="text-3xl font-bold text-story-text text-center flex items-center justify-center gap-2">
             Describe Your Character
@@ -92,7 +144,7 @@ const StoryCreationForm = () => {
         </form>
       )}
 
-      {step === 2 && (
+      {step === 3 && (
         <form onSubmit={handleCharacterSelection} className="space-y-6">
           <h2 className="text-3xl font-bold text-story-text text-center flex items-center justify-center gap-2">
             Choose Your Character
@@ -133,7 +185,7 @@ const StoryCreationForm = () => {
         </form>
       )}
 
-      {step === 3 && (
+      {step === 4 && (
         <form onSubmit={handleGenerateStory} className="space-y-6">
           <h2 className="text-3xl font-bold text-story-text text-center flex items-center justify-center gap-2">
             Create Your Story
