@@ -35,7 +35,8 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
       console.log("Sharing failed", error);
       toast({
         title: "Sharing failed",
-        description: "Unable to share the story. Please try copying the URL manually.",
+        description:
+          "Unable to share the story. Please try copying the URL manually.",
         variant: "destructive",
       });
     }
@@ -43,10 +44,9 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="mb-8 flex justify-between items-center bg-story-secondary rounded-2xl p-6 shadow-lg">
-        <h1 className="text-4xl font-bold text-story-text flex items-center gap-2">
+      <div className="mb-8 flex justify-between items-center rounded-2xl p-6">
+        <h1 className="text-4xl font-bold font-serif flex items-center gap-2">
           {story.title}
-          <Sparkles className="h-6 w-6 text-story-accent animate-pulse" />
         </h1>
         <Button
           variant="outline"
@@ -81,7 +81,7 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
           <ChevronLeft className="w-4 h-4" />
           Previous
         </Button>
-        <span className="text-story-text text-lg font-medium bg-white px-4 py-2 rounded-full">
+        <span className="text-lg font-medium px-4 py-2">
           Page {currentPage + 1} of {story.images.length}
         </span>
         <Button

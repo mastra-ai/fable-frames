@@ -45,12 +45,15 @@ const StoryPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-story-secondary">
-      <Header />
-      <div className="py-12">
-        <StoryViewer story={story} />
+    <>
+      <div className="texture"></div>
+      <div className="min-h-screen container mx-auto">
+        <Header />
+        <div className="py-12">
+          <StoryViewer story={story} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

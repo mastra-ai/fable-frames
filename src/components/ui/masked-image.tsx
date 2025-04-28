@@ -47,13 +47,11 @@ export const MaskedImage: React.FC<MaskedImageProps> = ({
         "mask-no-repeat object-cover mask-size-[100%_100%] mask-center",
         className
       )}
-      style={{
-        maskImage: `url(${maskUrl})`,
-        width: `${width}px`,
-        height: `${height}px`,
-      }}
+      style={{ maskImage: `url(${maskUrl})` }}
       src={src}
       alt={alt}
+      width={width}
+      height={height}
     />
   );
 };

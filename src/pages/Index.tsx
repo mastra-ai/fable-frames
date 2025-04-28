@@ -39,8 +39,8 @@ const Index = () => {
                 <Sparkles className="h-8 w-8 md:h-12 md:w-12" />
               </span>
             </h1>
-            <p className="text-xl md:text-2xl animate-fade-in">
-              The simplest way to create a story with your child
+            <p className="text-lg lg:text-xl text-foreground/80">
+              The simplest way to create a children's story
             </p>
             <div className="pt-4">
               <Link to="/create">
