@@ -29,7 +29,7 @@ const Index = () => {
   return (
     <>
       <div className="texture"></div>
-      <div className="min-h-screen">
+      <div className="min-h-screen container mx-auto">
         <Header />
         <div className="container px-4 py-16 md:py-24">
           <div className="text-center space-y-6 max-w-3xl mx-auto">

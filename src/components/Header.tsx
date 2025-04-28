@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <header className="">
-      <div className="container flex h-16 items-center">
+      <div className="flex h-16 mx-4 items-center">
         <Link to="/" className="flex items-center gap-2 mr-6">
           <BookOpen className="h-8 w-8 primary" />
           <span className="text-2xl font-bold primary">FableFrames</span>
