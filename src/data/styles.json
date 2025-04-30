@@ -1,0 +1,50 @@
+[
+  {
+    "id": "classic-watercolor",
+    "name": "Classic Watercolor",
+    "image": "/watercolor.png",
+    "prompt": "Rendered in soft, dreamy watercolor with delicate ink outlines. Muted pastel tones with gentle earth colors. Fine, intricate details in flora and fauna. Nostalgic and comforting atmosphere evoking a warm, quiet world. Translucent paint washes that bloom organically across the page."
+  },
+  {
+    "id": "flat-vector",
+    "name": "Flat Vector",
+    "image": "/flatvector.png",
+    "prompt": "Clean, geometric vector art with smooth flat color fills. Bold, modern color palette with bright primary colors or playful pastels. Minimal to no outlines, with shapes defined by sharp edges. Whimsical and fun aesthetic with an emphasis on simplicity and clarity. No visible brushstrokes or gradients."
+  },
+  {
+    "id": "collage",
+    "name": "Collage",
+    "image": "/collage.png",
+    "prompt": "Handmade collage style with rough, torn edges and layered paper textures. Vivid, dynamic color combinations of printed textures and patterns. Shapes defined by cut edges and overlapping elements. Playful, tactile aesthetic with deliberate imperfections. Celebrates a handcrafted, cut-and-paste look with high visual interest."
+  },
+  {
+    "id": "mid-century-modern",
+    "name": "Mid-Century Modern",
+    "image": "/midcentury.png",
+    "prompt": "Stylized mid-century modern illustration with screenprint-like textures. Retro color palette featuring mustard yellow, teal, burnt orange, olive green, and dusty pink. Clean, minimal lines with geometric or simplified shapes. Cool, stylish aesthetic reminiscent of 1950s-60s design. Incorporates pattern and repetition as key design elements."
+  },
+  {
+    "id": "whimsical",
+    "name": "Whimsical",
+    "image": "/whimsical.png",
+    "prompt": "Energetic pen and ink illustration with light watercolor washes. Loose, wiggly, sketchy linework that gives characters a sense of motion. Warm, varied color palette with occasional bright splashes over neutral tones. Lively, humorous style full of personality. Intentionally uneven detailing—some areas highly detailed while others remain loose and gestural."
+  },
+  {
+    "id": "fantasy",
+    "name": "Fantasy",
+    "image": "/fantasy.png",
+    "prompt": "Painterly fantasy realism with strong atmosphere, light, and depth. Rich, naturalistic color palette with deep shadows and glowing highlights. Minimal linework, with form created through shading rather than outlines. Mysterious and immersive mood like a still from a fantasy film. Intricate detailing in textures—visible bark on trees, dimensional clouds, and fine stitching on clothing."
+  },
+  {
+    "id": "anime",
+    "name": "Anime",
+    "image": "/anime.png",
+    "prompt": "Clean, polished anime-inspired digital art with soft gradients and atmospheric lighting. Bright, harmonious colors with dramatic light transitions. Thin, precise linework with expressive variation, especially in hair and eyes. Emotional and evocative mood with a sense of wonder. Characters with large, emotive eyes and dynamic poses against lush, cinematic backgrounds."
+  },
+  {
+    "id": "naive",
+    "name": "Bold Naive",
+    "image": "/naive.png",
+    "prompt": "Childlike naive art style with bold, spontaneous brushstrokes. Highly saturated, playful colors with very little shading. Uneven, expressive colored lines rather than black outlines. Innocent, joyful mood full of personality. Freely interpreted proportions and perspective that prioritize emotional expression over realism."
+  }
+]

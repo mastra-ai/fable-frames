@@ -12,9 +12,6 @@ const CreateStory = () => {
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight pb-2">
               Create Your Magical Story
             </h1>
-            <p className="text-xl md:text-2xl">
-              Let's bring your imagination to life
-            </p>
           </div>
           <StoryCreationForm />
         </div>

@@ -11,16 +11,17 @@ import { useToast } from "@/components/ui/use-toast";
 import { Sparkles } from "lucide-react";
 import { Card } from "./ui/card";
 
-const STORY_STYLES = [
-  { name: "Classic Watercolor", image: "/placeholder.svg" },
-  { name: "Flat Vector", image: "/placeholder.svg" },
-  { name: "Collage", image: "/placeholder.svg" },
-  { name: "Mid-Century Modern", image: "/placeholder.svg" },
-  { name: "Whimsical", image: "/placeholder.svg" },
-  { name: "Fantasy", image: "/placeholder.svg" },
-  { name: "Anime", image: "/placeholder.svg" },
-  { name: "Naive", image: "/placeholder.svg" },
-];
+// Define the Style interface to match the structure in styles.json
+interface Style {
+  id: string;
+  name: string;
+  image: string;
+  prompt: string;
+}
+
+// Import styles data
+import stylesData from "@/data/styles.json";
+const styles = stylesData as Style[];
 
 const StoryCreationForm = () => {
   const [step, setStep] = useState(1);
@@ -36,8 +37,8 @@ const StoryCreationForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleStyleSelection = (style: string) => {
-    setSelectedStyle(style);
+  const handleStyleSelection = (styleId: string) => {
+    setSelectedStyle(styleId);
   };
 
   const handleStyleSubmit = (e: React.FormEvent) => {
@@ -57,7 +58,10 @@ const StoryCreationForm = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const images = await generateCharacterImages(characterDescription);
+      const images = await generateCharacterImages(
+        characterDescription,
+        styles.find((s) => s.id === selectedStyle)?.prompt || ""
+      );
       setCharacters(images);
       setStep(3);
     } catch (error) {
@@ -92,7 +96,7 @@ const StoryCreationForm = () => {
       const story = await generateStory(
         selectedCharacter.imageUrl,
         storyDescription,
-        selectedStyle
+        selectedStyle // This is now the styleId
       );
       navigate(`/story/${story.id}`);
     } catch (error) {
@@ -116,20 +120,20 @@ const StoryCreationForm = () => {
             <Sparkles className="h-6 w-6 text-story-accent" />
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {STORY_STYLES.map((style) => (
+            {styles.map((style) => (
               <div
-                key={style.name}
+                key={style.id}
                 className={`cursor-pointer p-2 rounded-xl border transition-all flex flex-col items-center justify-center gap-2 ${
-                  selectedStyle === style.name
+                  selectedStyle === style.id
                     ? "ring-4 ring-story-accent"
                     : "hover:ring-2 ring-story-primary/50"
                 }`}
-                onClick={() => handleStyleSelection(style.name)}
+                onClick={() => handleStyleSelection(style.id)}
               >
                 <img
                   src={style.image}
                   alt={style.name}
-                  className="w-full h-24 object-cover rounded-lg"
+                  className="w-full object-cover rounded-lg"
                 />
                 <span className="font-semibold text-center text-sm">
                   {style.name}
@@ -146,13 +150,13 @@ const StoryCreationForm = () => {
       {step === 2 && (
         <form onSubmit={handleGenerateCharacter} className="space-y-6">
           <h2 className="text-3xl font-bold text-story-text text-center flex items-center justify-center gap-2">
-            Describe Your Character
+            Describe Your Main Character
             <Sparkles className="h-6 w-6 text-story-accent" />
           </h2>
           <Textarea
             value={characterDescription}
             onChange={(e) => setCharacterDescription(e.target.value)}
-            placeholder="Describe your magical character..."
+            placeholder="Describe your main character. The more detail the better..."
             className="min-h-[150px] border-story-primary/20 focus:border-story-primary"
             required
           />
@@ -201,7 +205,7 @@ const StoryCreationForm = () => {
 
       {step === 4 && (
         <form onSubmit={handleGenerateStory} className="space-y-6">
-          <h2 className="text-3xl font-bold font-sefif text-center flex items-center justify-center gap-2">
+          <h2 className="text-3xl font-bold font-serif text-center flex items-center justify-center gap-2">
             Create Your Story
             <Sparkles className="h-6 w-6 text-story-accent" />
           </h2>
