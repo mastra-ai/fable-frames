@@ -3,7 +3,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { MastraClient } from "@mastra/client-js";
 
 // In Vite, environment variables are accessed through import.meta.env
-const mastraUrl = import.meta.env.VITE_MASTRA_URL || "http://localhost:4111";
+const mastraUrl = (() => {
+  // Debug logging to see what's available
+  console.log("Environment variables:", {
+    VITE_MASTRA_URL: import.meta.env.VITE_MASTRA_URL,
+    MODE: import.meta.env.MODE,
+    DEV: import.meta.env.DEV,
+  });
+
+  return import.meta.env.VITE_MASTRA_URL || "http://localhost:4111";
+})();
+
+console.log("Using Mastra URL:", mastraUrl);
 
 const client = new MastraClient({
   baseUrl: mastraUrl, // Use environment variable with fallback
