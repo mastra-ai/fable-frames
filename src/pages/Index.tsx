@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import StoryGrid from "@/components/StoryGrid";
-import { getLatestStories } from "@/services/storyService";
+import { getFeaturedStories } from "@/services/storyService";
 import type { Story } from "@/services/storyService";
 import { Sparkles } from "lucide-react";
 import Header from "@/components/Header";
@@ -14,7 +14,7 @@ const Index = () => {
   useEffect(() => {
     const loadStories = async () => {
       try {
-        const latestStories = await getLatestStories();
+        const latestStories = await getFeaturedStories();
         setStories(latestStories);
       } catch (error) {
         console.error("Failed to load stories:", error);

@@ -3,12 +3,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { MastraClient } from "@mastra/client-js";
 
 const client = new MastraClient({
-  baseUrl: "http://localhost:4111", // Default Mastra development server port
+  baseUrl: process.env.MASTRA_URL || "http://localhost:4111", // Use environment variable with fallback
 });
 
 export interface Character {
   id: string;
   imageUrl: string;
+  prompt: string;
 }
 
 export interface Story {
@@ -25,12 +26,6 @@ type StoryContent = {
   image: string;
   text: string;
 }[];
-
-// const mockCharacterImages = [
-//   "/placeholder.svg",
-//   "/placeholder.svg",
-//   "/placeholder.svg",
-// ];
 
 export const generateCharacterImages = async (
   description: string,
@@ -55,50 +50,94 @@ export const generateCharacterImages = async (
 
   console.log("CharacterImage Result:", result?.results);
 
-  const characterImages = result.results.characterImages;
-  if (!characterImages || !Array.isArray(characterImages)) {
+  // Check if the step exists and is in a success state with output
+  const generateCharacterStep = result.results?.generateCharacter;
+  if (
+    !generateCharacterStep ||
+    generateCharacterStep.status !== "success" ||
+    !("output" in generateCharacterStep)
+  ) {
     throw new Error("Failed to generate character images");
   }
 
-  return characterImages.map((image: string, index: number) => ({
-    id: `char-${index}`,
-    imageUrl: image,
-  }));
+  const characterImages = generateCharacterStep.output?.characterImages;
+  if (!characterImages || !Array.isArray(characterImages)) {
+    throw new Error("Character images not found in workflow result");
+  }
 
-  // await new Promise(resolve => setTimeout(resolve, 1500));
-  // return mockCharacterImages.map((url, index) => ({
-  //   id: `char-${index}`,
-  //   imageUrl: url,
-  // }));
+  return characterImages.map((image: string, index: number) => ({
+    id: image.split("/").pop(),
+    imageUrl: image,
+    prompt: generateCharacterStep.output?.characterPrompts[index],
+  }));
 };
 
 export const generateStory = async (
   characterImage: string,
+  characterPrompt: string,
+  characterName: string,
   description: string,
-  styleId: string
+  style: string
 ): Promise<Story> => {
-  console.log(
-    "Generating story with character image, description, and style:",
-    { characterImage, description, styleId }
-  );
-
-  // Mock story generation
-  const mockStoryContent: StoryContent = Array(5)
-    .fill(null)
-    .map(() => ({
-      image: "/placeholder.svg",
-      text: "This is a sample story text that will be replaced with AI-generated content.",
-    }));
-
-  const title = "The Magical Adventure";
+  console.log("Generating story with character, description, and style:", {
+    characterImage,
+    characterName,
+    description,
+    style,
+  });
 
   try {
+    const workflow = client.getWorkflow("storyWorkflow");
+
+    const { runId } = await workflow.createRun();
+
+    const result = await workflow.startAsync({
+      runId,
+      triggerData: {
+        characterPrompt,
+        characterImageUrl: characterImage,
+        characterName,
+        style,
+        storyTheme: description,
+      },
+    });
+
+    console.log("storyWorkflow Result:", result?.results);
+
+    // Check if the step exists and is in a success state with output
+    const combineStoryStep = result.results?.combineStory;
+    if (
+      !combineStoryStep ||
+      combineStoryStep.status !== "success" ||
+      !("output" in combineStoryStep)
+    ) {
+      throw new Error("Failed to generate story images");
+    }
+
+    const title = combineStoryStep.output?.completeStory?.title;
+    const content = combineStoryStep.output?.completeStory?.pages;
+
+    // return characterImages.map((image: string, index: number) => ({
+    //   id: image.split("/").pop(),
+    //   imageUrl: image,
+    // }));
+
+    console.log("pre save story", {
+      title,
+      content,
+      style,
+      character: characterName,
+      characterUrl: characterImage,
+    });
+
     const { data: story, error } = await supabase
       .from("stories")
       .insert({
         title,
-        content: mockStoryContent,
-        style: styleId,
+        content,
+        style,
+        character: characterName,
+        character_url: characterImage,
       })
       .select()
       .single();
@@ -113,11 +152,11 @@ export const generateStory = async (
     return {
       id: story.id,
       title: story.title,
-      images: mockStoryContent.map((page) => page.image),
-      texts: mockStoryContent.map((page) => page.text),
+      images: content.map((page) => page.image),
+      texts: content.map((page) => page.text),
       createdAt: story.created_at,
       characterImage,
-      styleId: story.style,
+      styleId: style,
     };
   } catch (error) {
     console.error("Failed to save story:", error);
@@ -125,12 +164,15 @@ export const generateStory = async (
   }
 };
 
-export const getLatestStories = async (page: number = 1): Promise<Story[]> => {
+export const getFeaturedStories = async (
+  page: number = 1
+): Promise<Story[]> => {
   console.log("Fetching latest stories, page:", page);
   try {
     const { data: stories, error } = await supabase
       .from("stories")
       .select("*")
+      .eq("featured", true)
       .order("created_at", { ascending: false })
       .range((page - 1) * 12, page * 12 - 1);
 

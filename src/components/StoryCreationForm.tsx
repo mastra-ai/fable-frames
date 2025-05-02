@@ -95,6 +95,8 @@ const StoryCreationForm = () => {
     try {
       const story = await generateStory(
         selectedCharacter.imageUrl,
+        selectedCharacter.prompt,
+        characterName,
         storyDescription,
         selectedStyle // This is now the styleId
       );
@@ -185,7 +187,7 @@ const StoryCreationForm = () => {
                 <img
                   src={char.imageUrl}
                   alt="Character option"
-                  className="w-full h-40 object-cover rounded-lg"
+                  className="w-full object-cover rounded-lg"
                 />
               </div>
             ))}

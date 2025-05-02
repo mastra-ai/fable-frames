@@ -58,7 +58,7 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
         </Button>
       </div>
 
-      <div className="relative aspect-[16/9] mb-8 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
+      <div className="relative mb-8 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
         <img
           src={story.images[currentPage]}
           alt={`Story page ${currentPage + 1}`}
