@@ -131,7 +131,7 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-story-primary/90 to-transparent p-8 rounded-b-3xl">
-                    <p className="text-sm md:text-xl lg:text-2xl text-white font-medium leading-relaxed animate-fade-in">
+                    <p className="text-xs md:text-xl lg:text-2xl text-white font-medium leading-relaxed animate-fade-in">
                       {story.texts[index]}
                     </p>
                   </div>
