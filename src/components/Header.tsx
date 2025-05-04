@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { BookOpen, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -27,7 +27,11 @@ const Header = () => {
     <header className="">
       <div className="flex h-16 mx-4 items-center">
         <Link to="/" className="flex items-center gap-2 mr-6">
-          <BookOpen className="h-8 w-8 primary" />
+          <img
+            src="/FableFramesLogoSmall.png"
+            alt="FableFrames Logo"
+            className="h-8 w-auto"
+          />
           <span className="text-2xl font-bold primary">FableFrames</span>
         </Link>
         {/* <NavigationMenu className="hidden md:flex">
