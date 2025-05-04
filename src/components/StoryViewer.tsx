@@ -75,16 +75,17 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="mb-8 flex justify-between items-center rounded-2xl p-6">
-        <h1 className="text-4xl font-bold font-serif flex items-center gap-2">
+        <h1 className="text-2xl md:text-4xl font-bold font-serif flex items-center gap-2">
           {story.title}
         </h1>
         <Button
           variant="outline"
-          className="flex items-center gap-2 bg-white hover:bg-story-accent transition-colors duration-300"
+          className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base bg-white hover:bg-story-accent transition-colors duration-300"
           onClick={handleShare}
         >
-          <Share2 className="w-4 h-4" />
-          Share Story
+          <Share2 className="w-3 h-3 sm:w-4 sm:h-4" />
+          <span className="hidden sm:inline">Share Story</span>
+          <span className="sm:hidden">Share</span>
         </Button>
       </div>
 
@@ -130,7 +131,7 @@ const StoryViewer = ({ story }: StoryViewerProps) => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-story-primary/90 to-transparent p-8 rounded-b-3xl">
-                    <p className="text-md md:text-xl lg:text-2xl text-white font-medium leading-relaxed animate-fade-in">
+                    <p className="text-sm md:text-xl lg:text-2xl text-white font-medium leading-relaxed animate-fade-in">
                       {story.texts[index]}
                     </p>
                   </div>
