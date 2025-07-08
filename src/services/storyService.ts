@@ -56,25 +56,21 @@ export const generateCharacterImages = async (
 
   const result = await workflow.startAsync({
     runId,
-    triggerData: {
+    inputData: {
       characterDescription: description,
       style,
     },
   });
 
-  console.log("CharacterImage Result:", result?.results);
+  // @ts-expect-error - result is not typed
+  console.log("CharacterImage Result:", result?.result);
 
   // Check if the step exists and is in a success state with output
-  const generateCharacterStep = result.results?.generateCharacter;
-  if (
-    !generateCharacterStep ||
-    generateCharacterStep.status !== "success" ||
-    !("output" in generateCharacterStep)
-  ) {
+  if (result.status !== "success") {
     throw new Error("Failed to generate character images");
   }
 
-  const characterImages = generateCharacterStep.output?.characterImages;
+  const characterImages = result.result?.characterImages;
   if (!characterImages || !Array.isArray(characterImages)) {
     throw new Error("Character images not found in workflow result");
   }
@@ -82,7 +78,7 @@ export const generateCharacterImages = async (
   return characterImages.map((image: string, index: number) => ({
     id: image.split("/").pop(),
     imageUrl: image,
-    prompt: generateCharacterStep.output?.characterPrompts[index],
+    prompt: result.result?.characterPrompts[index],
   }));
 };
 
@@ -107,7 +103,7 @@ export const generateStory = async (
 
     const result = await workflow.startAsync({
       runId,
-      triggerData: {
+      inputData: {
         characterPrompt,
         characterImageUrl: characterImage,
         characterName,
@@ -116,20 +112,15 @@ export const generateStory = async (
       },
     });
 
-    console.log("storyWorkflow Result:", result?.results);
+    // @ts-expect-error - result is not typed
+    console.log("storyWorkflow Result:", result?.result);
 
-    // Check if the step exists and is in a success state with output
-    const combineStoryStep = result.results?.combineStory;
-    if (
-      !combineStoryStep ||
-      combineStoryStep.status !== "success" ||
-      !("output" in combineStoryStep)
-    ) {
+    if (result.status !== "success") {
       throw new Error("Failed to generate story images");
     }
 
-    const title = combineStoryStep.output?.completeStory?.title;
-    const content = combineStoryStep.output?.completeStory?.pages;
+    const title = result.result?.completeStory?.title;
+    const content = result.result?.completeStory?.pages;
 
     // return characterImages.map((image: string, index: number) => ({
     //   id: image.split("/").pop(),
